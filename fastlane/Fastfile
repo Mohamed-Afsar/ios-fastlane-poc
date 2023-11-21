@@ -27,6 +27,7 @@ platform :ios do
   desc "Build binary"
   lane :build do
     sign
+    build_ios_app
   end
 
   desc "Release"
