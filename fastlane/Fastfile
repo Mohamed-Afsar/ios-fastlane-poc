@@ -6,9 +6,22 @@ lane :create_app do
 end
 
 platform :ios do
+  before_all do
+    Dotenv.load ".env.ios"
+  end
+
   desc "Sync signing"
   lane :sign do
+    sync_code_signing # match
     
+    # Manually updating code signing setting
+    mapping = Actions.lane_context[
+      SharedValues::MATCH_PROVISIONING_PROFILE_MAPPING
+    ]
+    # This will modify the Xcode project and we will do a git reset at the end to revert
+    update_code_signing_settings(
+      profile_name: mapping[ENV['MATCH_APP_IDENTIFIER']]
+    )
   end
 
   desc "Build binary"

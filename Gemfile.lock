@@ -211,7 +211,8 @@ PLATFORMS
   arm64-darwin-22
 
 DEPENDENCIES
-  fastlane
+  dotenv
+  fastlane (= 2.216.0)
 
 BUNDLED WITH
    2.4.10
