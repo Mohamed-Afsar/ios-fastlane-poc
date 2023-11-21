@@ -70,7 +70,17 @@ platform :mac do
 
   desc "Release"
   lane :release do
+    ensure_git_status_clean # Ensures everything is committed
+    ensure_git_branch # Ensures main branch
+
+    add_git_tag # Adds a tag to the commit
+    push_git_tag # Pushes the tag to GitHub
+
     build
     upload_to_app_store # deliver
+
+    reset_git_repo # Resets the changes made by fastlane to the source. Especially `update_code_signing_settings`.
+
+    set_github_release # Sets up a GitHub release
   end
 end
